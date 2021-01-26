@@ -13,8 +13,13 @@
                 <h5>{{ $post->created_at->format('d/m/Y') }}</h5>
 
                 <p>{{ $post->body }}</p>
+
+                @if (! empty($post->path_img))
+                     <img src="{{ asset('storage/'. $post->path_img)}}" alt="">
+                @endif    
+
                 <a href="{{route('posts.show', $post->slug)}}">Read more</a>
-            
+
             </article>
 
         @empty

@@ -9,8 +9,10 @@
         
 @extends('layouts.main')
 
-@section('content')
 
+
+@section('content')
+   
     <div class='container mb-5'>
         <h1>{{$post->title}}</h1>
 
@@ -20,7 +22,7 @@
             <a class="btn btn-secondary" href="#">Edit</a>
         </div>
 
-        @if (!empty($post->path_img))
+        @if (! empty($post->path_img))
             <img src="{{ asset('storage/'. $post->path_img)}}" alt="">
         @endif    
 

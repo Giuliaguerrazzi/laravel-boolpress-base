@@ -38,35 +38,35 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        
         $data = $request->all();
-        // dd($data);
+        // dump($data);
 
         // validazione
         $request->validate($this->ruleValidation());
 
         // set post slug
         $data['slug'] = Str::slug($data['title'], '-');
-        //dd($data);
+        // dd($data);
 
-        // gestione immagine, se l'immagine è presente
-        if(! empty($data['path_img'])) {
-            
-            $data['path_img'] = Storage::disk('public')->put('images', $data['path_img']);
+        //gestione immagine, se l'immagine è presente
+        if(!empty($data['path_img'])){
+            $data['path_img'] = Storage::disk('public')->put('images', $data['path_img'] );
         }
 
         // salvataggio su db
         $newPost = new Post();
-        $newPost->fill($data);
+        $newPost->fill($data); //fillable nel Model necessario
         $saved = $newPost->save();
 
-        if($saved) {
+        if ($saved){
             return redirect()->route('posts.index');
         } else {
             return redirect()->route('homepage');
         }
-
     }
+
 
     /**
      * Display the specified resource.
@@ -79,8 +79,8 @@ class PostController extends Controller
         $post = Post::where('slug', $slug)->first();
 
         return view('posts.show', compact('post'));
+        
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -116,11 +116,11 @@ class PostController extends Controller
     }
 
     // validazione globale
-    private function ruleValidation() {
+    private function ruleValidation(){
         return [
             'title' => 'required',
             'body' => 'required',
-            'path_img' => 'image',
+            'path_img' => 'mimes:jpeg,bmp,png,jpg'
         ];
     }
 }
