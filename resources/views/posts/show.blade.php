@@ -24,6 +24,8 @@
 
         @if (! empty($post->path_img))
             <img src="{{ asset('storage/'. $post->path_img)}}" alt="">
+        @else 
+            <img src="{{ asset('img/no-image-available.jpg')}}" alt="">    
         @endif    
 
         <p class="text mb-5 mt-5">
